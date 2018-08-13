@@ -14,8 +14,8 @@ class Board
      "-", 1, 2, 3, 4, 5, 6, 7, "-"
      ]
 
-    @played_moves = { 1 => [], 2 => [], 3 => [],
-       4 => [], 5 => [], 6 => [], 7 => [] }
+    @played_moves = { "1" => [], "2" => [], "3" => [],
+       "4" => [], "5" => [], "6" => [], "7" => [] }
 
   end
 
@@ -35,7 +35,7 @@ class Board
 
     if @played_moves[column].length < 7
       @played_moves[column] << symbol
-      @board_state[9 * (6 - @played_moves[column].length) + column] = symbol
+      @board_state[9 * (6 - @played_moves[column].length) + column.to_i] = symbol
       return true
     else
       puts "Invalid move"
@@ -44,15 +44,43 @@ class Board
 
   end
 
+  def game_won?(symbol)
+
+    four_in_a_row = symbol * 4
+
+    #first we check the columns, then the rows, then the diagonals
+
+    @played_moves.keys.each { |i|
+      col = @played_moves[i.to_s]
+      if col[3] == symbol && col.join("").include?(four_in_a_row)
+        return true
+      end
+    }
+
+    6.times { |i|
+    midpoint = 4 + (9 * i)
+    if @board_state[midpoint] != "-" &&
+      @board_state[midpoint - 3..midpoint + 3].join("").include?(four_in_a_row)
+        return true
+    end
+    }
+
+    #diagonal checking goes here
+    
+    return false
+
+  end
 
 end
 
-game = Board.new
 i = 0
+game = Board.new
 while i < 10
-  puts "which column?"
-  column = gets.chomp
-  game.play_move(column.to_i, "£")
   game.render
-  i += 1
+  puts "which column?"
+  instruction = gets.chomp
+  game.play_move(instruction, "$")
+  if game.game_won?("$")
+    puts "The game is won!"
+  end
 end
