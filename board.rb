@@ -66,7 +66,28 @@ class Board
     }
 
     #diagonal checking goes here
-    
+    4.times { |i|
+      3.times { |j|
+        start_index = i + (9 * j) + 1
+        diag = @board_state[start_index] + @board_state[start_index + 10] +
+          @board_state[start_index + 20] + @board_state[start_index + 30]
+        if diag == four_in_a_row
+          return true
+        end
+      }
+    }
+
+    4.times { |i|
+      3.times { |j|
+        start_index = i + (9 * j) + 7
+        diag = @board_state[start_index] + @board_state[start_index + 8] +
+          @board_state[start_index + 16] + @board_state[start_index + 24]
+        if diag == four_in_a_row
+          return true
+        end
+      }
+    }
+
     return false
 
   end
@@ -75,12 +96,23 @@ end
 
 i = 0
 game = Board.new
-while i < 10
+while i < 42
   game.render
   puts "which column?"
   instruction = gets.chomp
-  game.play_move(instruction, "$")
-  if game.game_won?("$")
-    puts "The game is won!"
+  if i % 2 == 0
+    game.play_move(instruction, "R")
+  else
+    game.play_move(instruction, "B")
   end
+  if game.game_won?("R")
+    game.render
+    puts "Red won the game!"
+    break
+  elsif game.game_won?("B")
+    game.render
+    puts "Blue won the game!"
+    break
+  end
+  i += 1
 end
