@@ -20,7 +20,7 @@ class Gameplay
     if instruction == "N"
       puts "Goodbye!"
     elsif instruction == "Y"
-      run_game
+      run_two_player_game
     else
       puts "Sorry, I didn't understand that."
       introduction
@@ -28,7 +28,7 @@ class Gameplay
 
   end
 
-  def run_game
+  def run_two_player_game
 
     puts "Player 1, what is your name?"
     name_1 = gets.chomp
@@ -80,7 +80,7 @@ class Gameplay
     end
 
     introduction
-    
+
   end
 
 

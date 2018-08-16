@@ -51,7 +51,7 @@ class Board
 
     four_in_a_row = symbol * 4
 
-    #first we check the columns, then the rows, then the diagonals
+    # First we check the columns, then the rows, then the diagonals
 
     @played_moves.keys.each { |i|
       col = @played_moves[i.to_s]
@@ -68,7 +68,8 @@ class Board
     end
     }
 
-    #diagonal checking goes here
+    # Diagonal checking happens here, downward sloping then upward
+
     4.times { |i|
       3.times { |j|
         start_index = i + (9 * j) + 1
@@ -96,26 +97,3 @@ class Board
   end
 
 end
-#
-#i = 0
-#game = Board.new
-#while i < 42
-#  game.render
-#  puts "\nWhich column?"
-#  instruction = gets.chomp
-#  if i % 2 == 0
-#    game.play_move(instruction, "X")
-#  else
-#    game.play_move(instruction, "\u2610")
-#  end
-#  if game.game_won?("X")
-#    game.render
-#    puts "Red won the game!"
-#    break
-#  elsif game.game_won?("\u2610")
-#    game.render
-#    puts "Blue won the game!"
-#    break
-#  end
-#  i += 1
-#end
