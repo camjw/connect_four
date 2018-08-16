@@ -42,7 +42,8 @@ class Gameplay
 
     current_player = @player_1
     attempted_move = ""
-
+    total_moves = 0
+    # The game doesn't include the possibility of a draw, needs to be added.
 
     while true
       @game_board.render
@@ -55,18 +56,31 @@ class Gameplay
       end
       @game_board.play_move(attempted_move, current_player.symbol)
       attempted_move = ""
+
       if @game_board.game_won?(current_player.symbol)
         break
       end
-      #the line below never triggers if the current player has won the game
+
+      total_moves += 1
+
+      # The line below never triggers if the current player has won the game
       current_player = current_player == @player_1 ? @player_2 : @player_1
+
+      if total_moves == 42
+        break
+      end
+
     end
 
     @game_board.render
-    puts "The winner is #{current_player.name}!\n"
+    if total_moves < 42
+      puts "The winner is #{current_player.name}!\n"
+    else
+      puts "The game is a tie!"
+    end
 
     introduction
-
+    
   end
 
 
