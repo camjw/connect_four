@@ -28,7 +28,7 @@ class Gameplay
 
   end
 
-  def run_two_player_game
+  def get_two_players
 
     puts "Player 1, what is your name?"
     name_1 = gets.chomp
@@ -41,14 +41,20 @@ class Gameplay
     @game_board = Board.new
 
     current_player = @player_1
+
+  end
+
+  def run_two_player_game
+
+    get_two_players
+
     attempted_move = ""
     total_moves = 0
-    # The game doesn't include the possibility of a draw, needs to be added.
 
     while true
       @game_board.render
       while @game_board.move_valid?(attempted_move) == false
-        puts "#{current_player.name}, it's your turn.\n"
+        puts "\n#{current_player.name}, it's your turn.\n"
         attempted_move = gets.chomp
         if @game_board.move_valid?(attempted_move) == false
           puts "Invalid move, #{current_player.name}"
