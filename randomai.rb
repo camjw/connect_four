@@ -20,7 +20,6 @@ class RandomAI
     end
 
     @board.play_move(attempted_move, @symbol)
-
   end
 
 end
