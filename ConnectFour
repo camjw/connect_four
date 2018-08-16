@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+
+require_relative "board"
+require_relative "player"
+require_relative "randomai"
+require_relative "gameplay"
+
+game = Gameplay.new

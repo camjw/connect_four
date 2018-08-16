@@ -98,5 +98,3 @@ class Gameplay
 
 
 end
-
-game = Gameplay.new
