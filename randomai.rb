@@ -2,16 +2,24 @@ class RandomAI
 
   attr_reader :name, :symbol
 
-  def initialize
+  def initialize(symbol, board)
 
-    @name = "Random"
-    @symbol = "?"
+    @name = "Random " + rand(100).to_s
+    @symbol = symbol
+    @board = board
 
   end
 
-  def select_move
+  def play_move
 
-    return 1 + rand(7)
+    while true
+      attempted_move = (1 + rand(7)).to_s
+      if @board.move_valid?(attempted_move)
+        break
+      end
+    end
+
+    @board.play_move(attempted_move, @symbol)
 
   end
 

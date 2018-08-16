@@ -29,7 +29,7 @@ class Board
       print tile
     }
 
-    print "\n" + @board_labels
+    print "\n" + @board_labels + "\n"
 
   end
 
@@ -85,7 +85,7 @@ class Board
 
     4.times { |i|
       3.times { |j|
-        start_index = i + (9 * j) + 7
+        start_index = i + (9 * j) + 4
         diag = @board_state[start_index] + @board_state[start_index + 8] +
           @board_state[start_index + 16] + @board_state[start_index + 24]
         if diag == four_in_a_row

@@ -1,12 +1,14 @@
 require_relative "board"
 require_relative "player"
+require_relative "randomai"
 
 class Gameplay
 
-  attr_accessor :player_1, :player_2, :game_board
+  attr_accessor :players, :game_board
 
   def initialize
 
+    @players = { 1 => nil, 2 => nil }
     puts "Welcome to Connect Four!\n\n"
     introduction
 
@@ -14,13 +16,14 @@ class Gameplay
 
   def introduction
 
-    puts "Would you like to play a new two-player game? (Y/n)"
+    # This chunk needs refactoring
+    puts "Would you like to play a new game? (Y/n)"
 
     instruction = gets.chomp.upcase
     if instruction == "N"
       puts "Goodbye!"
     elsif instruction == "Y"
-      run_two_player_game
+      run_game
     else
       puts "Sorry, I didn't understand that."
       introduction
@@ -28,40 +31,44 @@ class Gameplay
 
   end
 
-  def get_two_players
-
-    puts "Player 1, what is your name?"
-    name_1 = gets.chomp
-    @player_1 = Player.new(name_1, "X")
-
-    puts "Player 2, what is your name?"
-    name_2 = gets.chomp
-    @player_2 = Player.new(name_2, "\u2610")
+  def get_players
 
     @game_board = Board.new
 
-    current_player = @player_1
+    @players.keys.each { | key |
+      while true
+        puts "Is Player #{key} human? (Y/n)"
+        human = gets.chomp.upcase
+
+        # The key - 1 bit is to make sure that we can index the players from 1,
+        # even though arrays are indexed from 0
+
+        if human == "Y"
+          puts "Player #{key}, what is your name?"
+          name = gets.chomp
+          @players[key] = Player.new(name, ["X", "O"][key - 1], @game_board)
+          break
+        elsif human == "N"
+          @players[key] = RandomAI.new(["!", "?"][key - 1], @game_board)
+          break
+        else
+          puts "Sorry, I didn't understand that."
+        end
+      end
+    }
 
   end
 
-  def run_two_player_game
+  def run_game
 
-    get_two_players
+    get_players
 
-    attempted_move = ""
+    current_player = @players[1]
     total_moves = 0
 
     while true
       @game_board.render
-      while @game_board.move_valid?(attempted_move) == false
-        puts "\n#{current_player.name}, it's your turn.\n"
-        attempted_move = gets.chomp
-        if @game_board.move_valid?(attempted_move) == false
-          puts "Invalid move, #{current_player.name}"
-        end
-      end
-      @game_board.play_move(attempted_move, current_player.symbol)
-      attempted_move = ""
+      current_player.play_move
 
       if @game_board.game_won?(current_player.symbol)
         break
@@ -70,7 +77,7 @@ class Gameplay
       total_moves += 1
 
       # The line below never triggers if the current player has won the game
-      current_player = current_player == @player_1 ? @player_2 : @player_1
+      current_player = current_player == @players[1] ? @players[2] : @players[1]
 
       if total_moves == 42
         break
@@ -80,9 +87,9 @@ class Gameplay
 
     @game_board.render
     if total_moves < 42
-      puts "The winner is #{current_player.name}!\n"
+      puts "\nThe winner is #{current_player.name}!\n"
     else
-      puts "The game is a tie!"
+      puts "\nThe game is a tie!\n"
     end
 
     introduction
