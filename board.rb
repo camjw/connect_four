@@ -31,16 +31,19 @@ class Board
     }
   end
 
+  def move_valid?(column)
+
+    return false unless (1..7).include?(column.to_i) &&
+      @played_moves[column].length < 7
+
+    return true
+
+  end
+
   def play_move(column, symbol)
 
-    if @played_moves[column].length < 7
-      @played_moves[column] << symbol
-      @board_state[9 * (6 - @played_moves[column].length) + column.to_i] = symbol
-      return true
-    else
-      puts "Invalid move"
-      return false
-    end
+    @played_moves[column] << symbol
+    @board_state[9 * (6 - @played_moves[column].length) + column.to_i] = symbol
 
   end
 
@@ -93,26 +96,26 @@ class Board
   end
 
 end
-
-i = 0
-game = Board.new
-while i < 42
-  game.render
-  puts "which column?"
-  instruction = gets.chomp
-  if i % 2 == 0
-    game.play_move(instruction, "R")
-  else
-    game.play_move(instruction, "B")
-  end
-  if game.game_won?("R")
-    game.render
-    puts "Red won the game!"
-    break
-  elsif game.game_won?("B")
-    game.render
-    puts "Blue won the game!"
-    break
-  end
-  i += 1
-end
+#
+#i = 0
+#game = Board.new
+#while i < 42
+#  game.render
+#  puts "\nWhich column?"
+#  instruction = gets.chomp
+#  if i % 2 == 0
+#    game.play_move(instruction, "X")
+#  else
+#    game.play_move(instruction, "\u2610")
+#  end
+#  if game.game_won?("X")
+#    game.render
+#    puts "Red won the game!"
+#    break
+#  elsif game.game_won?("\u2610")
+#    game.render
+#    puts "Blue won the game!"
+#    break
+#  end
+#  i += 1
+#end
