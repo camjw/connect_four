@@ -54,7 +54,7 @@ class RandomStateSearch
 
   end
 
-  def search_states(total_games, increment)
+  def search_states(total_games, increment, target_file="rss_output.csv")
     output_array = []
     start_time = Time.now
 
@@ -62,7 +62,32 @@ class RandomStateSearch
       play_game
       if num % increment == 0 && num > 0
         @states.uniq!
-        time_taken = (((Time.now - start_time) * 100 ).to_i ) / 100
+        time_taken = (((Time.now - start_time) * 100.0 ).to_i ) / 100.0
+        output_array << { "Games played" => num, "States found" => @states.size,
+          "Time taken" => time_taken }
+        puts "Found #{@states.size} states after #{num} games
+          and #{time_taken} seconds."
+        output_array.to_csv(csv_filename=target_file)
+      end
+    }
+
+    @states.uniq!
+    final_time = (((Time.now - start_time) * 100.0 ).to_i ) / 100.0
+    output_array << { "Games played" => total_games,
+      "States found" => @states.size, "Time taken" => final_time }
+    output_array.to_csv(csv_filename=target_file)
+    puts "Found #{@states.size} states in total after #{final_time} seconds."
+
+  end
+
+  def search_states_fast(total_games, increment, target_file="fast_rss_output.csv")
+    output_array = []
+    start_time = Time.now
+
+    total_games.times { | num |
+      play_game
+      if num % increment == 0 && num > 0
+        time_taken = (((Time.now - start_time) * 100.0 ).to_i ) / 100.0
         output_array << { "Games played" => num, "States found" => @states.size,
           "Time taken" => time_taken }
         puts "Found #{@states.size} states after #{num} games
@@ -70,10 +95,11 @@ class RandomStateSearch
       end
     }
 
-    final_time = (((Time.now - start_time) * 100 ).to_i ) / 100
+    @states.uniq!
+    final_time = (((Time.now - start_time) * 100.0 ).to_i ) / 100.0
     output_array << { "Games played" => total_games,
       "States found" => @states.size, "Time taken" => final_time }
-    output_array.to_csv(csv_filename="rss_output.csv")
+    output_array.to_csv(csv_filename=target_file)
     puts "Found #{@states.size} states in total after #{final_time} seconds."
 
   end
@@ -81,4 +107,4 @@ class RandomStateSearch
 end
 
 rss = RandomStateSearch.new
-rss.search_states(1000000, 1000)
+rss.search_states(1000000, 50000, target_file="rss_output_50000_gap.csv")
