@@ -37,7 +37,6 @@ class RandomStateSearch
       end
       total_moves += 1
 
-      # The line below never triggers if the current player has won the game
       current_player = current_player == @players[1] ? @players[2] : @players[1]
 
       if total_moves == 42
@@ -67,7 +66,7 @@ class RandomStateSearch
           "Time taken" => time_taken }
         puts "Found #{@states.size} states after #{num} games
           and #{time_taken} seconds."
-        output_array.to_csv(csv_filename=target_file)
+        output_array.to_csv(csv_filename="data/" + target_file)
       end
     }
 
@@ -75,31 +74,7 @@ class RandomStateSearch
     final_time = (((Time.now - start_time) * 100.0 ).to_i ) / 100.0
     output_array << { "Games played" => total_games,
       "States found" => @states.size, "Time taken" => final_time }
-    output_array.to_csv(csv_filename=target_file)
-    puts "Found #{@states.size} states in total after #{final_time} seconds."
-
-  end
-
-  def search_states_fast(total_games, increment, target_file="fast_rss_output.csv")
-    output_array = []
-    start_time = Time.now
-
-    total_games.times { | num |
-      play_game
-      if num % increment == 0 && num > 0
-        time_taken = (((Time.now - start_time) * 100.0 ).to_i ) / 100.0
-        output_array << { "Games played" => num, "States found" => @states.size,
-          "Time taken" => time_taken }
-        puts "Found #{@states.size} states after #{num} games
-          and #{time_taken} seconds."
-      end
-    }
-
-    @states.uniq!
-    final_time = (((Time.now - start_time) * 100.0 ).to_i ) / 100.0
-    output_array << { "Games played" => total_games,
-      "States found" => @states.size, "Time taken" => final_time }
-    output_array.to_csv(csv_filename=target_file)
+    output_array.to_csv(csv_filename="data/" + target_file)
     puts "Found #{@states.size} states in total after #{final_time} seconds."
 
   end
@@ -107,4 +82,4 @@ class RandomStateSearch
 end
 
 rss = RandomStateSearch.new
-rss.search_states(1000000, 50000, target_file="rss_output_50000_gap.csv")
+rss.search_states(1000000, 50000, target_file="rss_output.csv")
