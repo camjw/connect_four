@@ -1,6 +1,8 @@
 # Connect Four
 
-This repository is a Ruby implementation of the popular Connect Four game which you can play in your terminal. It supports two player games, a very dubious one player game and a surreal to watch zero player game.
+This repository is a Ruby implementation of the popular Connect Four game which
+you can play in your terminal. It supports two player games, a very dubious one
+player game and a surreal to watch zero player game.
 
 ## Usage
 
@@ -13,7 +15,10 @@ game = Gameplay.new   # Starts a new game
 ```
 
 ## Example game
-The game interface is simple: just enter numbers from 1 to 7 to indicate the column you want to play. The game won't allow invalid moves (i.e. if there are already seven pieces in a column or if you enter a string which is not a number from 1 to 7).
+The game interface is simple: just enter numbers from 1 to 7 to indicate the
+column you want to play. The game won't allow invalid moves (i.e. if there are
+already seven pieces in a column or if you enter a string which is not a number
+from 1 to 7).
 
 ![How the game starts](images/start_of_game.png)
 
@@ -21,7 +26,8 @@ The winner is mildly congratulated:
 
 ![How the game ends](images/end_of_game.png)
 
-There is an AI included which the player can play against but at the moment it only plays by randomly choosing a valid column. It often misses winning moves.
+There is an AI included which the player can play against but at the moment it
+only plays by randomly choosing a valid column. It often misses winning moves.
 
 Here we can see the AI missing two winning moves in one go!
 
@@ -29,9 +35,12 @@ Here we can see the AI missing two winning moves in one go!
 
 ## Random play
 
-Connect Four is a moderately complex game though, so making a decent AI is a challenge. The difficulty comes from the number of different legal states/positions the board can be in. There are over 4 billion different states the board can be in (REFERENCE).
+Connect Four is a complex game though, so making a decent AI is a challenge. The difficulty comes from the number of different legal states/positions the board
+can be in. There are over 4 billion different states of Connect Four [[1]].
 
-The `randomstatesearch` file plays games with two random AIs and returns all the unique states it has found after a certain number of games. This happens in the `RandomStateSearch` class whose most important function is the `search_states` function shown here:
+The `randomstatesearch` file plays games with two random AIs and returns all the
+unique states it has found after a certain number of games. This happens in the `RandomStateSearch` class whose most important function is the `search_states`
+function shown here:
 
 ```Ruby
 def search_states(total_games, increment, target_file="rss_output.csv")
@@ -61,3 +70,20 @@ def search_states(total_games, increment, target_file="rss_output.csv")
 end
 
 ```
+
+After playing 1,000,000 random games the AI has found 10,940,486 different
+states, or around 11 per game.
+
+![Random play](images/games_played_vs_states_found.png)
+
+The issue with using this approach to find all 4 billion states is that it takes
+a very long time. Thanks to the calls to ` @states.uniq! ` the algorithm runs in exponential time.
+
+![Random play](images/games_played_vs_time_taken.png)
+
+## Next Steps
+
+Make an AI which can compete with humans.
+
+
+[1]: https://oeis.org/A212693

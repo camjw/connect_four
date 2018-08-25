@@ -8,7 +8,7 @@ sns.set(style="ticks", palette="muted")
 rss_data = pd.read_csv("data/rss_output.csv")
 
 # Create a regplot
-sns.relplot(x="Games played", y="States found", data=rss_data)
+sns.relplot(x="Games played", y="Time taken", data=rss_data)
 
 # Show plot
 plt.show()
