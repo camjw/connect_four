@@ -70,29 +70,29 @@ class Board
     end
     }
 
-    # Diagonal checking happens here, downward sloping then upward
+    # Diagonal checking happens here
 
-    4.times { |i|
-      3.times { |j|
-        start_index = i + (9 * j) + 1
-        diag = @board_state[start_index] + @board_state[start_index + 10] +
-          @board_state[start_index + 20] + @board_state[start_index + 30]
-        if diag == four_in_a_row
-          return true
-        end
-      }
+    diag_indices = [
+      1, 2, 3, 4,
+      10, 11, 12, 13,
+      19, 20, 21, 22,
+    ]
+
+    diag_indices.each { | start_index |
+      puts start_index
+      puts @board_state
+      down_diag = @board_state[start_index] + @board_state[start_index + 10] +
+        @board_state[start_index + 20] + @board_state[start_index + 30]
+
+      up_diag = @board_state[start_index + 3] + @board_state[start_index + 11] +
+        @board_state[start_index + 19] + @board_state[start_index + 27]
+
+      if up_diag == four_in_a_row || down_diag == four_in_a_row
+        return true
+      end
+
     }
 
-    4.times { |i|
-      3.times { |j|
-        start_index = i + (9 * j) + 4
-        diag = @board_state[start_index] + @board_state[start_index + 8] +
-          @board_state[start_index + 16] + @board_state[start_index + 24]
-        if diag == four_in_a_row
-          return true
-        end
-      }
-    }
 
     return false
 
