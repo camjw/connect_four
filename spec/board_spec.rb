@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 require 'board'
 
 RSpec.describe Board do
-
-  subject { described_class.new() }
+  subject { described_class.new }
 
   describe '#render' do
     it 'displays the entire board to the console' do
@@ -31,17 +32,17 @@ RSpec.describe Board do
       subject.play_move('1', 'X')
       updated_moves = subject.played_moves
       expected_moves = { '1' => ['X'], '2' => [], '3' => [], '4' => [],
-        '5' => [], '6' => [], '7' => [] }
+                         '5' => [], '6' => [], '7' => [] }
       updated_state = subject.board_state
       expected_state = [
-       '|', '-', '-', '-', '-', '-', '-', '-', '|',
-       '|', '-', '-', '-', '-', '-', '-', '-', '|',
-       '|', '-', '-', '-', '-', '-', '-', '-', '|',
-       '|', '-', '-', '-', '-', '-', '-', '-', '|',
-       '|', '-', '-', '-', '-', '-', '-', '-', '|',
-       '|', 'X', '-', '-', '-', '-', '-', '-', '|'
-       ]
-       expected_output = [expected_moves, expected_state]
+        '|', '-', '-', '-', '-', '-', '-', '-', '|',
+        '|', '-', '-', '-', '-', '-', '-', '-', '|',
+        '|', '-', '-', '-', '-', '-', '-', '-', '|',
+        '|', '-', '-', '-', '-', '-', '-', '-', '|',
+        '|', '-', '-', '-', '-', '-', '-', '-', '|',
+        '|', 'X', '-', '-', '-', '-', '-', '-', '|'
+      ]
+      expected_output = [expected_moves, expected_state]
       expect([updated_moves, updated_state]).to eq expected_output
     end
   end
@@ -59,7 +60,7 @@ RSpec.describe Board do
     end
 
     it 'returns true when there is a vertical win' do
-      4.times do |index|
+      4.times do |_index|
         subject.play_move('1', 'X')
       end
       expect(subject.game_won?('X')).to eq true
@@ -67,7 +68,7 @@ RSpec.describe Board do
 
     it 'returns true when there is a diagonal win' do
       (1..4).each do |column|
-        column.times do |index|
+        column.times do |_index|
           subject.play_move(column.to_s, '0')
         end
       end

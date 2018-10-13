@@ -1,21 +1,19 @@
+# frozen_string_literal: true
+
 require_relative 'board'
 require_relative 'player'
 require_relative 'randomai'
 
 class Gameplay
-
   attr_accessor :players, :game_board
 
   def initialize(testing: false)
-
     @players = { 1 => nil, 2 => nil }
     puts "Welcome to Connect Four!\n\n"
     introduction unless testing
-
   end
 
   def introduction
-
     # This chunk needs refactoring
     puts 'Would you like to play a new game? (Y/n)'
 
@@ -28,15 +26,13 @@ class Gameplay
       puts "Sorry, I didn't understand that."
       introduction
     end
-
   end
 
   def get_players
-
     @game_board = Board.new
 
-    @players.keys.each { | key |
-      while true
+    @players.keys.each do |key|
+      loop do
         puts "Is Player #{key} human? (Y/n)"
         human = gets.chomp.upcase
 
@@ -46,7 +42,7 @@ class Gameplay
         if human == 'Y'
           puts "Player #{key}, what is your name?"
           name = gets.chomp
-          @players[key] = Player.new(name, ['X', 'O'][key - 1], @game_board)
+          @players[key] = Player.new(name, %w[X O][key - 1], @game_board)
           break
         elsif human == 'N'
           @players[key] = RandomAI.new(['!', '?'][key - 1], @game_board)
@@ -55,34 +51,27 @@ class Gameplay
           puts "Sorry, I didn't understand that."
         end
       end
-    }
-
+    end
   end
 
   def run_game
-
     get_players
 
     current_player = @players[1]
     total_moves = 0
 
-    while true
+    loop do
       @game_board.render
       current_player.play_move
 
-      if @game_board.game_won?(current_player.symbol)
-        break
-      end
+      break if @game_board.game_won?(current_player.symbol)
 
       total_moves += 1
 
       # The line below never triggers if the current player has won the game
       current_player = current_player == @players[1] ? @players[2] : @players[1]
 
-      if total_moves == 42
-        break
-      end
-
+      break if total_moves == 42
     end
 
     @game_board.render
@@ -93,8 +82,5 @@ class Gameplay
     end
 
     introduction
-
   end
-
-
 end

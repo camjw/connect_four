@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 # This class contains the board for Connect Four and checks when whether the
 # game has been won and if moves are valid.
 class Board
-
   attr_accessor :board_state, :played_moves
 
   def initialize
@@ -14,9 +15,7 @@ class Board
 
   def render
     @board_state.each_with_index do |tile, index|
-      if (index % 9).zero? && index != 0
-        puts ''
-      end
+      puts '' if (index % 9).zero? && index != 0
       print tile
     end
 
