@@ -1,4 +1,5 @@
 require 'coveralls'
+require 'rake'
 require 'simplecov'
 require 'simplecov-console'
 require 'pry'
