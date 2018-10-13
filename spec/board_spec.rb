@@ -39,4 +39,36 @@ RSpec.describe Board do
       expect([updated_moves, updated_state]).to eq expected_output
     end
   end
+
+  describe '#game_won?' do
+    it 'returns false when no moves have been played' do
+      expect(subject.game_won?('X')).to eq false
+    end
+
+    it 'returns true when there is a horizontal win' do
+      (1..4).each do |index|
+        subject.play_move(index.to_s, 'X')
+      end
+      expect(subject.game_won?('X')).to eq true
+    end
+
+    it 'returns true when there is a vertical win' do
+      4.times do |index|
+        subject.play_move('1', 'X')
+      end
+      expect(subject.game_won?('X')).to eq true
+    end
+
+    it 'returns true when there is a diagonal win' do
+      (1..4).each do |column|
+        column.times do |index|
+          subject.play_move(column.to_s, '0')
+        end
+      end
+      (1..4).each do |index|
+        subject.play_move(index.to_s, 'X')
+      end
+      expect(subject.game_won?('X')).to eq true
+    end
+  end
 end
