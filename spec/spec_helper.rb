@@ -12,5 +12,3 @@ SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([
   SimpleCov::Formatter::HTMLFormatter
 ])
 SimpleCov.start
-
-Rake.application.load_rakefile
