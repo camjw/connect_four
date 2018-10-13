@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 ruby '2.5.0'
 
-gem 'coveralls'
+gem 'coveralls', require: false
 gem 'pry'
 gem 'rake'
 gem 'rspec'

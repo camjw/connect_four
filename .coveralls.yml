@@ -1,1 +1,1 @@
-repo_token: ${coveralls_token}
+repo_token: $coveralls_token
