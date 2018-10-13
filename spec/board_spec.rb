@@ -6,7 +6,13 @@ RSpec.describe Board do
 
   describe '#render' do
     it 'displays the entire board to the console' do
-
+      expect { subject.render }.to output("|-------|\n"\
+                                          "|-------|\n"\
+                                          "|-------|\n"\
+                                          "|-------|\n"\
+                                          "|-------|\n"\
+                                          "|-------|\n"\
+                                          "-1234567-\n").to_stdout
     end
   end
 

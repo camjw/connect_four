@@ -3,6 +3,10 @@ GEM
   specs:
     ansi (1.5.0)
     ast (2.4.0)
+    codecov (0.1.13)
+      json
+      simplecov
+      url
     coderay (1.1.2)
     coveralls (0.8.22)
       json (>= 1.8, < 3)
@@ -61,11 +65,13 @@ GEM
     thor (0.19.4)
     tins (1.16.3)
     unicode-display_width (1.4.0)
+    url (0.3.2)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  codecov
   coveralls
   pry
   rake

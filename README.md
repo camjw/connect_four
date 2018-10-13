@@ -1,5 +1,10 @@
 # Connect Four
 
+[![Build Status](https://travis-ci.com/camjw/connect_four.svg?branch=master)](https://travis-ci.com/camjw/connect_four)
+
+[![codecov](https://codecov.io/gh/camjw/connect_four/branch/master/graph/badge.svg)](https://codecov.io/gh/camjw/connect_four)
+
+
 This repository is a Ruby implementation of the popular Connect Four game which
 you can play in your terminal. It supports two player games, a very dubious one
 player game and a (strange to watch) zero player game.

@@ -6,11 +6,11 @@ class Gameplay
 
   attr_accessor :players, :game_board
 
-  def initialize
+  def initialize(testing: false)
 
     @players = { 1 => nil, 2 => nil }
     puts "Welcome to Connect Four!\n\n"
-    introduction
+    introduction unless testing
 
   end
 
@@ -25,13 +25,13 @@ class Gameplay
     elsif instruction == 'Y'
       run_game
     else
-      puts 'Sorry, I didn't understand that.'
+      puts "Sorry, I didn't understand that."
       introduction
     end
 
   end
 
-  def get_'layers
+  def get_players
 
     @game_board = Board.new
 
@@ -98,5 +98,3 @@ class Gameplay
 
 
 end
-
-game = Gameplay.new
