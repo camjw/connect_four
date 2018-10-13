@@ -2,7 +2,7 @@
 
 This repository is a Ruby implementation of the popular Connect Four game which
 you can play in your terminal. It supports two player games, a very dubious one
-player game and a surreal to watch zero player game.
+player game and a (strange to watch) zero player game.
 
 ## Usage
 

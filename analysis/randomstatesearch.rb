@@ -1,5 +1,5 @@
-require_relative "board"
-require_relative "randomai"
+require_relative "../lib/board"
+require_relative "../lib/randomai"
 require "csv"
 
 class Array
