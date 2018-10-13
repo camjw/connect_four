@@ -10,11 +10,12 @@ class RandomAI
   end
 
   def play_move
-    loop do
-      attempted_move = rand(1..7).to_s
-      break if @board.move_valid?(attempted_move)
+    attempted_move = rand(1..7).to_s
+    puts attempted_move
+    if @board.move_valid?(attempted_move) == false
+      play_move if ENV['TEST_ENV'] != 'test'
+    else
+      @board.play_move(attempted_move, @symbol)
     end
-
-    @board.play_move(attempted_move, @symbol)
   end
 end

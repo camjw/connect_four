@@ -7,10 +7,6 @@ RSpec.describe Player do
   let(:mock_board_false) { double :mock_board, move_valid?: false, play_move: true }
 
   subject { described_class.new('Test', 'X', mock_board_true) }
-  #
-  # before do
-  #   $stdout =
-  # end
 
   after do
     $stdin = STDIN

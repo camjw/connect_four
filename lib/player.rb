@@ -11,7 +11,7 @@ class Player
 
   def play_move
     puts "\n#{@name}, it's your turn. Choose a column from 1 to 7.\n"
-    attempted_move = gets.chomp
+    attempted_move = $stdin.gets.chomp
     if @board.move_valid?(attempted_move) == false
       puts "Invalid move, #{@name}"
       play_move if ENV['TEST_ENV'] != 'test'
