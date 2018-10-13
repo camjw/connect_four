@@ -4,7 +4,7 @@ class RandomAI
 
   def initialize(symbol, board)
 
-    @name = "Random " + rand(100).to_s
+    @name = 'Random ' + rand(100).to_s
     @symbol = symbol
     @board = board
 

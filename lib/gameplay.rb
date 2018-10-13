@@ -1,6 +1,6 @@
-require_relative "board"
-require_relative "player"
-require_relative "randomai"
+require_relative 'board'
+require_relative 'player'
+require_relative 'randomai'
 
 class Gameplay
 
@@ -17,21 +17,21 @@ class Gameplay
   def introduction
 
     # This chunk needs refactoring
-    puts "Would you like to play a new game? (Y/n)"
+    puts 'Would you like to play a new game? (Y/n)'
 
     instruction = gets.chomp.upcase
-    if instruction == "N"
-      puts "Goodbye!"
-    elsif instruction == "Y"
+    if instruction == 'N'
+      puts 'Goodbye!'
+    elsif instruction == 'Y'
       run_game
     else
-      puts "Sorry, I didn't understand that."
+      puts 'Sorry, I didn't understand that.'
       introduction
     end
 
   end
 
-  def get_players
+  def get_'layers
 
     @game_board = Board.new
 
@@ -43,13 +43,13 @@ class Gameplay
         # The key - 1 bit is to make sure that we can index the players from 1,
         # even though arrays are indexed from 0
 
-        if human == "Y"
+        if human == 'Y'
           puts "Player #{key}, what is your name?"
           name = gets.chomp
-          @players[key] = Player.new(name, ["X", "O"][key - 1], @game_board)
+          @players[key] = Player.new(name, ['X', 'O'][key - 1], @game_board)
           break
-        elsif human == "N"
-          @players[key] = RandomAI.new(["!", "?"][key - 1], @game_board)
+        elsif human == 'N'
+          @players[key] = RandomAI.new(['!', '?'][key - 1], @game_board)
           break
         else
           puts "Sorry, I didn't understand that."
