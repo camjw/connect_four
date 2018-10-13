@@ -14,7 +14,6 @@ class Gameplay
   end
 
   def introduction
-    # This chunk needs refactoring
     puts 'Would you like to play a new game? (Y/n)'
 
     instruction = gets.chomp.upcase
