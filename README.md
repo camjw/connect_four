@@ -2,6 +2,9 @@
 
 [![Build Status](https://travis-ci.com/camjw/connect_four.svg?branch=master)](https://travis-ci.com/camjw/connect_four)
 [![codecov](https://codecov.io/gh/camjw/connect_four/branch/master/graph/badge.svg)](https://codecov.io/gh/camjw/connect_four)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+
 
 
 This repository is a Ruby implementation of the popular Connect Four game which
