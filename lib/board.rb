@@ -3,7 +3,7 @@
 # This class contains the board for Connect Four and checks when whether the
 # game has been won and if moves are valid.
 class Board
-  attr_accessor :board_state, :played_moves
+  attr_accessor :board_state, :played_moves, :total_moves
 
   def initialize
     @board_state = ['|', '-', '-', '-', '-', '-', '-', '-', '|'] * 6
@@ -11,6 +11,7 @@ class Board
 
     @played_moves = { '1' => [], '2' => [], '3' => [],
                       '4' => [], '5' => [], '6' => [], '7' => [] }
+    @total_moves = 0
   end
 
   def render
@@ -32,6 +33,7 @@ class Board
   def play_move(column, symbol)
     @played_moves[column] << symbol
     @board_state[9 * (6 - @played_moves[column].length) + column.to_i] = symbol
+    @total_moves += 1
   end
 
   def game_won?(symbol)

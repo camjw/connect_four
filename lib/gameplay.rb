@@ -73,16 +73,14 @@ class Gameplay
 
       break if @game_board.game_won?(current_player.symbol)
 
-      total_moves += 1
-
       # The line below never triggers if the current player has won the game
       current_player = current_player == @players[1] ? @players[2] : @players[1]
 
-      break if total_moves == 42
+      break if @game_board.total_moves == 42
     end
 
     @game_board.render
-    if total_moves < 42
+    if @game_board.total_moves < 42
       puts "\nThe winner is #{current_player.name}!\n"
     else
       puts "\nThe game is a tie!\n"

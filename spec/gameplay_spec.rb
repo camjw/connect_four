@@ -9,7 +9,9 @@ RSpec.describe Gameplay do
   let(:mock_random_class) { double :mock_random_class, new: mock_random }
   let(:mock_random) { double :mock_random }
   let(:mock_board_class) { double :mock_board_class, new: mock_board }
-  let(:mock_board) { double :mock_board, render: true, game_won?: true }
+  let(:mock_board) { double :mock_board, render: true, game_won?: true, total_moves: 0 }
+  let(:mock_board_class_draw) { double :mock_board_class_draw, new: mock_board_draw }
+  let(:mock_board_draw) { double :mock_board, render: true, game_won?: false, total_moves: 42 }
 
   subject { described_class.new(board: mock_board_class, player: mock_player_class, randomai: mock_random_class, testing: true) }
 
@@ -63,13 +65,23 @@ RSpec.describe Gameplay do
   end
 
   describe '#run_game' do
-    it 'gets the players' do
+    it 'runs a full game' do
       allow(STDIN).to receive(:gets).and_return('Y')
       full_game_message = "Is Player 1 human? (Y/n)\nPlayer 1, what is your "\
                           "name?\nIs Player 2 human? (Y/n)\nPlayer 2, what is"\
                           " your name?\n\nThe winner is test!\n"
       expect { subject.run_game }.to output(full_game_message).to_stdout
     end
+
+    it 'knows if the game has ended in a draw' do
+      subject_draw =  described_class.new(board: mock_board_class_draw, player: mock_player_class, randomai: mock_random_class, testing: true)
+      allow(STDIN).to receive(:gets).and_return('Y')
+      draw_message = "Is Player 1 human? (Y/n)\nPlayer 1, what is your name?"\
+                     "\nIs Player 2 human? (Y/n)\nPlayer 2, what is your "\
+                     "name?\n\nThe game is a tie!\n"
+      expect { subject_draw.run_game }.to output(draw_message).to_stdout
+    end
+
   end
 
 

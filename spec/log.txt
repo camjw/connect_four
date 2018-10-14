@@ -1,7 +1,0 @@
-1
-2
-d you like to play a new game? (Y/n)
-Is Player 1 human? (Y/n)
-Player 1, what is your name?
-Is Player 2 human? (Y/n)
-Player 2, what is your name?
